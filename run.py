@@ -126,6 +126,12 @@ def run_exp(imgs, noises, bilateral_dict={"iters":5, "flt_size":3, "sigma_d":1, 
 
 if __name__ == "__main__":
 
+    import os
+    # ディレクトリがない場合、作成する
+    if not os.path.exists("./outputs"):
+        print("ディレクトリを作成します")
+        os.makedirs("./outputs")
+
     np.set_printoptions(formatter={'float': '{: 0.3f}'.format}) #桁を揃える
 
     import argparse
@@ -145,6 +151,7 @@ if __name__ == "__main__":
     parser.add_argument("--n_fsize", type=int, default=3)
     parser.add_argument("--n_sigma", type=float, default=10.0)
     parser.add_argument("--n_h", type=float, default=5.0)
+    parser.add_argument("--not_padding", action='store_false')
 
 
     args = parser.parse_args() 
@@ -157,7 +164,7 @@ if __name__ == "__main__":
     nlm_dict["flt_size"] = args.n_fsize
     nlm_dict["sigma"] = args.n_sigma
     nlm_dict["h"] = args.n_h
-    padding = True
+    padding = args.not_padding
 
 
     ramen = np.array(Image.open("/content/drive/MyDrive/CV/img/ramen.jpeg"), dtype="float32")
@@ -195,7 +202,7 @@ if __name__ == "__main__":
                 labelleft=False,
                 labelright=False,
                 labeltop=False)
-    fig.savefig("./outputs/pudding.png")
+    fig.savefig("./outputs/puddings.png")
 
     onsens = np.array(filtered[2])
     title = ["No Filter", "Bilateral FIlter", "Guided Filter", "NLM FIlter"]
@@ -208,22 +215,22 @@ if __name__ == "__main__":
                 labelleft=False,
                 labelright=False,
                 labeltop=False)
-    fig.savefig("./outputs/onsen.png")
+    fig.savefig("./outputs/onsens.png")
 
-    print("____________________")
+    print("\n")
     print("ramen")
-    print("No Noise|Bilateral|Guided|NLM")
-    print("____________________")
+    print("No Noise | Bilateral | Guided | NLM")
+    print("______________________________")
     print(psnr[0])
 
     print("pudding")
-    print("No Noise|Bilateral|Guided|NLM")
-    print("____________________")
+    print("No Noise | Bilateral | Guided | NLM")
+    print("______________________________")
     print(psnr[1])
 
     print("onsen")
-    print("No Noise|Bilateral|Guided|NLM")
-    print("____________________")
+    print("No Noise | Bilateral | Guided | NLM")
+    print("______________________________")
     print(psnr[2])
 
 
