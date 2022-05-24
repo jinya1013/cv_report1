@@ -167,13 +167,13 @@ if __name__ == "__main__":
     padding = args.not_padding
 
 
-    ramen = np.array(Image.open("/content/drive/MyDrive/CV/img/ramen.jpeg"), dtype="float32")
+    ramen = np.array(Image.open("./imgs/ramen.jpeg"), dtype="float32")
     ramen = ramen / 255
 
-    pudding = np.array(Image.open("/content/drive/MyDrive/CV/img/pudding.jpeg"), dtype="float32")
+    pudding = np.array(Image.open("./imgs/pudding.jpeg"), dtype="float32")
     pudding = pudding / 255
 
-    onsen = np.array(Image.open("/content/drive/MyDrive/CV/img/onsen.jpeg"), dtype="float32")
+    onsen = np.array(Image.open("./imgs/onsen.jpeg"), dtype="float32")
     onsen = onsen / 255
 
     psnr, filtered = run_exp([ramen, pudding, onsen], [0.01, 0.05, 0.1, 0.2, 0.5], bilateral_dict, guided_dict, nlm_dict, padding)
